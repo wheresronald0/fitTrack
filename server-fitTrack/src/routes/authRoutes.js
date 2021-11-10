@@ -21,6 +21,29 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+router.post("/signin", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res
+      .status(422)
+      .send({ error: "Must provide and email address and valid password" });
+  }
+
+  const user = await User.findOne({ email: email });
+  if (!user) {
+    return res.status(404).send({ error: "Sorry ,email wasn't found" });
+  }
+
+  try {
+    await user.comparePassword(password);
+    const token = jwt.sign({ userId: user._Id }, "secret_key");
+    res.send({ token: token });
+  } catch (err) {
+    return res.status(401).send({ error: "invalid passowrd or email" });
+  }
+});
+
 module.exports = router; //need to import where you wnat to use
 
 /*
