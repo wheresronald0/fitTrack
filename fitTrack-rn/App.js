@@ -31,17 +31,17 @@ function loginFlow() {
   );
 }
 
-function mainFlow() {
+function mainFlow(props) {
   return (
     <Tab.Navigator>
       <Stack.Screen
-        name="TrackList"
-        options={{ title: "Your Tracks" }}
-        component={TrackListScreen}
+        name="Deets"
+        options={{ headerShown: false }}
+        component={detailsOf}
       />
       <Stack.Screen
-        name="TrackDetail"
-        options={{ title: "Track Detail" }}
+        name="TrackCreate"
+        options={{ title: "Create Track" }}
         component={TrackDetailScreen}
       />
       <Stack.Screen
@@ -50,6 +50,29 @@ function mainFlow() {
         component={AccountScreen}
       />
     </Tab.Navigator>
+  );
+}
+
+function detailsOf(props) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="TrackList"
+        options={{ title: "Your Tracks" }}
+        component={TrackListScreen}
+      />
+
+      <Stack.Screen
+        name="TrackDetail"
+        //options={{ title: "Track Detail" }}
+        component={TrackDetailScreen}
+        options={{
+          title: "Track Detailo",
+          //tabBarItemStyle: { display: "none" },
+          //headerShown: true,
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 
