@@ -1,21 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { View, Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-export default function App() {
+import SignupScreen from "./src/screens/SignupScreen";
+import SigninScreen from "./src/screens/SigninScreen";
+import TrackListScreen from "./src/screens/TrackListScreen";
+import TrackDetailScreen from "./src/screens/TrackDetailScreen";
+import TrackCreateScreen from "./src/screens/TrackCreateScreen";
+import AccountScreen from "./src/screens/AccountScreen";
+
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          options={{ title: "Sign Up!" }}
+          component={SignupScreen}
+        />
+        <Stack.Screen name="SignIn" component={SigninScreen} />
+        <Stack.Screen name="TrackList" component={TrackListScreen} />
+        <Stack.Screen name="TrackDetail" component={TrackDetailScreen} />
+        <Stack.Screen name="TrackCreate" component={TrackCreateScreen} />
+        <Stack.Screen name="Account" component={AccountScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
