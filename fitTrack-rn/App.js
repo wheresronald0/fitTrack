@@ -19,12 +19,12 @@ function loginFlow() {
     <Stack.Navigator>
       <Stack.Screen
         name="SignUp"
-        options={{ title: "Sign Up!" }}
+        options={{ title: "", headerShown: true }} //may keep empty string to see header for back navigation
         component={SignupScreen}
       />
       <Stack.Screen
         name="SignIn"
-        options={{ title: "Sign In" }}
+        options={{ title: "", headerShown: true }}
         component={SigninScreen}
       />
     </Stack.Navigator>
