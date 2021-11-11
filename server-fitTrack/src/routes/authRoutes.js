@@ -34,10 +34,10 @@ router.post("/signin", async (req, res) => {
   if (!user) {
     return res.status(404).send({ error: "Sorry ,email wasn't found" });
   }
-
+  //once email is matched, then password is auth
   try {
     await user.comparePassword(password);
-    const token = jwt.sign({ userId: user._Id }, "secret_key");
+    const token = jwt.sign({ userId: user._id }, "secret_key");
     res.send({ token: token });
   } catch (err) {
     return res.status(401).send({ error: "invalid passowrd or email" });
