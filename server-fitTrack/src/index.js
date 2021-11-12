@@ -13,6 +13,7 @@ app.use(bodyParser.json()); //install above so it can parse before the route is 
 app.use(authRoutes); //allows you to use all rountes in authRoutes handler
 app.use(trackRoutes);
 
+//Mongo and Mongoose connection
 const mongoURI =
   "mongodb+srv://admin:admin1@cluster0.cj9ui.mongodb.net/fitTrack?retryWrites=true&w=majority";
 mongoose.connect(mongoURI);
@@ -23,6 +24,7 @@ mongoose.connection.on("error", (err) => {
   console.log("Error connecting to Mongo", err);
 });
 
+//once requireAuth is executed successfully, then we get db access
 app.get("/", requireAuth, (req, res) => {
   //after get request, requireAuth middleware is run, and moves to .next()
   res.send(`Your email is ${req.user.email} `);

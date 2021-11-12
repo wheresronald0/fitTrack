@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User");
 
 module.exports = (req, res, next) => {
-  const { authorization } = req.headers;
+  const { authorization } = req.headers; //header set up in Postman
   //authorization will be "Bearer 'jksahflakjhfakghhgahgf'"
 
   if (!authorization) {
