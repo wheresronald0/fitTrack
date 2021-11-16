@@ -14,7 +14,7 @@ const SigninScreen = ({ navigation }) => {
       <Input
         label="Email"
         style={styles.text}
-        onChange={(data) => setEmail(data)}
+        onChangeText={(data) => setEmail(data)}
         value={email}
         autoCapitalize="none"
         autoCorrect={false}
@@ -22,7 +22,7 @@ const SigninScreen = ({ navigation }) => {
       <Input
         label="Password"
         style={styles.text}
-        onChange={(data) => setPassword(data)}
+        onChangeText={(data) => setPassword(data)}
         value={password}
         autoCapitalize="none"
         autoCorrect={false}

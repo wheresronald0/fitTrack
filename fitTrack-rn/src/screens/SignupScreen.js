@@ -4,11 +4,11 @@ import { Text, Input, Button } from "react-native-elements";
 import AuthContext from "../context/AuthContext";
 
 const SignupScreen = ({ navigation }) => {
-  const { state, authCheck } = useContext(AuthContext);
+  const { state, authCheck, signUp } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  console.log(state);
+  console.log(state.token);
 
   return (
     <View style={styles.container}>
@@ -18,7 +18,9 @@ const SignupScreen = ({ navigation }) => {
       <Input
         label="Email"
         style={styles.text}
-        onChange={(data) => setEmail(data)}
+        onChangeText={(data) => {
+          setEmail(data);
+        }}
         value={email}
         autoCapitalize="none"
         autoCorrect={false}
@@ -26,35 +28,26 @@ const SignupScreen = ({ navigation }) => {
       <Input
         label="Password"
         style={styles.text}
-        onChange={(data) => setPassword(data)}
+        onChangeText={(data) => {
+          setPassword(data);
+        }}
         value={password}
         autoCapitalize="none"
         autoCorrect={false}
         secureTextEntry={true}
       />
+      {state.errorMessage ? (
+        <Text style={styles.error}>{state.errorMessage}</Text>
+      ) : null}
       <Button
         title="Sign Up"
         style={styles.button}
-        onPress={() => navigation.navigate("MainFlow")}
+        onPress={signUp(email, password)}
       />
       <Button
         title="Already Have and Account?"
         style={styles.button}
         onPress={() => navigation.navigate("SignIn")}
-      />
-      <Button
-        title="Data"
-        style={styles.button}
-        onPress={() => {
-          authCheck(false);
-        }}
-      />
-      <Button
-        title="Data2"
-        style={styles.button}
-        onPress={() => {
-          authCheck(true);
-        }}
       />
     </View>
   );
@@ -75,6 +68,13 @@ const styles = StyleSheet.create({
     width: 300,
     margin: 15,
   },
+  error: {
+    fontSize: 15,
+    color: "red",
+  },
 });
 
 export default SignupScreen;
+/* 
+     
+      */
