@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthContext";
 const SigninScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signIn } = useContext(AuthContext);
+  const { state, signIn } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -30,6 +30,9 @@ const SigninScreen = ({ navigation }) => {
         autoCorrect={false}
         secureTextEntry={true}
       />
+      {state.errorMessage ? (
+        <Text style={styles.error}>{state.errorMessage}</Text>
+      ) : null}
       <Button
         title="Sign In"
         style={styles.button}

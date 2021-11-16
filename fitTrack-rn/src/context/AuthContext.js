@@ -14,8 +14,13 @@ const reducer = (state, action) => {
       return { ...state, token: action.payload, errorMessage: "" };
     case "signInSuccess":
       return { ...state, token: action.payload, errorMessage: "" };
+    case "sighOutUser":
+      return { ...state, token: null };
     case "error":
-      return { ...state, errorMessage: action.payload };
+      return {
+        ...state,
+        errorMessage: action.payload,
+      };
     default:
       return state;
   }
@@ -85,8 +90,11 @@ export const AuthProvider = ({ children }) => {
     };
   };
 
-  const signOut = () => {
-    return { email: email, password: passwood };
+  const signOut = async () => {
+    await AsyncStorage.clear();
+    dispatch({ type: "signOutUser" });
+
+    RootNavigation.navigate("LoginFlow");
   };
 
   return (
