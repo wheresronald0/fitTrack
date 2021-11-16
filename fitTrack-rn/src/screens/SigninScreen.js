@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { Text, Input, Button } from "react-native-elements";
+import AuthContext from "../context/AuthContext";
 
 const SigninScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { signIn } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -31,7 +33,7 @@ const SigninScreen = ({ navigation }) => {
       <Button
         title="Sign In"
         style={styles.button}
-        onPress={() => navigation.navigate("MainFlow")}
+        onPress={signIn(email, password)}
       />
     </View>
   );
@@ -55,3 +57,10 @@ const styles = StyleSheet.create({
 });
 
 export default SigninScreen;
+
+/*SigninScreen.navigationOptions = () => {
+  return {
+    headerShown: false,
+  };
+};
+*/

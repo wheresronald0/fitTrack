@@ -8,7 +8,7 @@ const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  console.log(state.token);
+  //console.log(state.token);
 
   return (
     <View style={styles.container}>

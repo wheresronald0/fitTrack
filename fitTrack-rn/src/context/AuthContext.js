@@ -12,7 +12,9 @@ const reducer = (state, action) => {
       return action.payload;
     case "signUpSuccess":
       return { ...state, token: action.payload, errorMessage: "" };
-    case "failedToSignUp":
+    case "signInSuccess":
+      return { ...state, token: action.payload, errorMessage: "" };
+    case "error":
       return { ...state, errorMessage: action.payload };
     default:
       return state;
@@ -44,15 +46,31 @@ export const AuthProvider = ({ children }) => {
         RootNavigation.navigate("MainFlow"); //navigates after auth
       } catch (err) {
         dispatch({
-          type: "failedToSignUp",
+          type: "error",
           payload: "Uh oh, something went wrong with sign up",
         });
       }
     };
   };
 
-  const signIn = () => {
-    return { email: email, password: password };
+  const signIn = (email, password) => {
+    return async () => {
+      try {
+        const response = await trackerApi.post("/signin", {
+          email,
+          password,
+        });
+        await AsyncStorage.setItem("token", response.data.token);
+        dispatch({ type: "signInSuccess", payload: response.data.token });
+
+        RootNavigation.navigate("MainFlow");
+      } catch (err) {
+        dispatch({
+          type: "error",
+          payload: "Uh oh, something went wrong with sign in",
+        });
+      }
+    };
   };
 
   const signOut = () => {
