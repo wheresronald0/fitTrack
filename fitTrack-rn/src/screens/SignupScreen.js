@@ -39,6 +39,7 @@ const SignupScreen = ({ navigation }) => {
       {state.errorMessage ? (
         <Text style={styles.error}>{state.errorMessage}</Text>
       ) : null}
+
       <Button
         title="Sign Up"
         style={styles.button}

@@ -1,6 +1,7 @@
 import React, { useState, useReducer } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import trackerApi from "../api/tracker";
+import * as RootNavigation from "../components/RootNavigation";
 
 const AuthContext = React.createContext();
 
@@ -39,6 +40,8 @@ export const AuthProvider = ({ children }) => {
         await AsyncStorage.setItem("token", response.data.token);
         dispatch({ type: "signUpSuccess", payload: response.data.token });
         //if all goes well I'll get a the response with the JWT stored in my var
+
+        RootNavigation.navigate("MainFlow"); //navigates after auth
       } catch (err) {
         dispatch({
           type: "failedToSignUp",
