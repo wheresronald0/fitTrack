@@ -12,6 +12,7 @@ import TrackCreateScreen from "./src/screens/TrackCreateScreen";
 import AccountScreen from "./src/screens/AccountScreen";
 import { AuthProvider } from "./src/context/AuthContext";
 import { navigationRef } from "./src/components/RootNavigation";
+import LoadingScreen from "./src/screens/LoadingScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -83,6 +84,7 @@ function App() {
     <AuthProvider>
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
+          <Stack.Screen name="Loading" component={LoadingScreen} />
           <Stack.Screen
             name="LoginFlow"
             component={loginFlow}

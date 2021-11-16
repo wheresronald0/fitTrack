@@ -32,6 +32,16 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: "isAuth", payload: tf });
   };
 
+  const tryLocalSignin = async () => {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      dispatch({ type: "signInSuccess", payload: token });
+      RootNavigation.navigate("MainFlow");
+    } else {
+      RootNavigation.navigate("LoginFlow");
+    }
+  };
+
   const signUp = (email, password) => {
     return async () => {
       try {
@@ -39,6 +49,7 @@ export const AuthProvider = ({ children }) => {
           email,
           password,
         });
+
         await AsyncStorage.setItem("token", response.data.token);
         dispatch({ type: "signUpSuccess", payload: response.data.token });
         //if all goes well I'll get a the response with the JWT stored in my var
@@ -60,6 +71,7 @@ export const AuthProvider = ({ children }) => {
           email,
           password,
         });
+        console.log(response.data.token);
         await AsyncStorage.setItem("token", response.data.token);
         dispatch({ type: "signInSuccess", payload: response.data.token });
 
@@ -82,6 +94,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         state: state,
         authCheck: authCheck,
+        tryLocalSignin: tryLocalSignin,
         signIn: signIn,
         signUp: signUp,
         signOut: signOut,
@@ -109,4 +122,7 @@ const signUp = (email, password) => {
       }
     };
   };
+
+  ----
+  
   */
