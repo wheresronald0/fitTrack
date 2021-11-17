@@ -34,7 +34,8 @@ export const AuthProvider = ({ children }) => {
   });
 
   const authCheck = (tf) => {
-    dispatch({ type: "isAuth", payload: tf });
+    //dispatch({ type: "isAuth", payload: tf });
+    //console.log(tf);
   };
 
   const tryLocalSignin = async () => {

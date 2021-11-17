@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-elements";
 import {
@@ -9,9 +9,11 @@ import {
 
 import Map from "../components/Map";
 //import "../api/_mockLocation";
+import LocationContext, { LocationProvider } from "../context/LocationContext";
 
 const TrackCreateScreen = (props) => {
   const { err, setErr } = useState(null);
+  const { addLocation } = useContext(LocationContext);
 
   const startWatching = async () => {
     try {
@@ -24,7 +26,7 @@ const TrackCreateScreen = (props) => {
           distanceInterval: 10,
         },
         (location) => {
-          //console.log(location);
+          addLocation(location);
         }
       );
     } catch (e) {

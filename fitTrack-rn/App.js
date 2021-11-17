@@ -10,7 +10,10 @@ import TrackListScreen from "./src/screens/TrackListScreen";
 import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 import TrackCreateScreen from "./src/screens/TrackCreateScreen";
 import AccountScreen from "./src/screens/AccountScreen";
+
 import { AuthProvider } from "./src/context/AuthContext";
+import { LocationProvider } from "./src/context/LocationContext";
+
 import { navigationRef } from "./src/components/RootNavigation";
 import LoadingScreen from "./src/screens/LoadingScreen";
 
@@ -81,23 +84,25 @@ function detailsOf(props) {
 
 function App() {
   return (
-    <AuthProvider>
-      <NavigationContainer ref={navigationRef}>
-        <Stack.Navigator>
-          <Stack.Screen name="Loading" component={LoadingScreen} />
-          <Stack.Screen
-            name="LoginFlow"
-            component={loginFlow}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name="MainFlow"
-            component={mainFlow}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </AuthProvider>
+    <LocationProvider>
+      <AuthProvider>
+        <NavigationContainer ref={navigationRef}>
+          <Stack.Navigator>
+            <Stack.Screen name="Loading" component={LoadingScreen} />
+            <Stack.Screen
+              name="LoginFlow"
+              component={loginFlow}
+              options={{ headerShown: false }}
+            />
+            <Tab.Screen
+              name="MainFlow"
+              component={mainFlow}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthProvider>
+    </LocationProvider>
   );
 }
 
