@@ -45,7 +45,7 @@ function mainFlow(props) {
       <Stack.Screen
         name="TrackCreate"
         options={{ title: "Create Track" }}
-        component={TrackDetailScreen}
+        component={TrackCreateScreen}
       />
       <Stack.Screen
         name="Account"
