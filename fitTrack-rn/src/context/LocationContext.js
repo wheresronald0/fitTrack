@@ -27,6 +27,7 @@ export const LocationProvider = ({ children }) => {
   };
 
   const addLocation = (location) => {
+    console.log("tracking");
     dispatch({ type: "addCurrentLocation", payload: location });
   };
 
