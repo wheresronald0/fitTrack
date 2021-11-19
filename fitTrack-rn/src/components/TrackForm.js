@@ -7,6 +7,7 @@ const TrackForm = () => {
   const { state, startRecording, stopRecording, changeTrackName } =
     useContext(LocationContext);
 
+  console.log(state.locations.length);
   return (
     <View>
       <Input
@@ -41,7 +42,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     margin: 15,
-    color: "red",
     borderRadius: 1,
     borderColor: "red",
   },

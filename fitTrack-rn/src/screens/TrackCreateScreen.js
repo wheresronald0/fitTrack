@@ -1,60 +1,28 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native"; //detects leaving a page similar to NavigationEvents
 import { View, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-elements";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native"; //detects leaving a page similar to NavigationEvents
-import {
-  requestForegroundPermissionsAsync,
-  watchPositionAsync,
-  Accuracy,
-} from "expo-location";
 
 import Map from "../components/Map";
 //import "../api/_mockLocation";
 import TrackForm from "../components/TrackForm";
 import LocationContext from "../context/LocationContext";
+import useLocation from "../hook/useLocation";
 
-const TrackCreateScreen = ({ navigation }) => {
-  const [err, setErr] = useState(null);
-  const [subscriber, setSubscriber] = useState(null);
-  const [recording, setRecording] = useState(false);
-  const { addLocation, state } = useContext(LocationContext);
+const TrackCreateScreen = () => {
+  const { state, addLocation } = useContext(LocationContext);
 
-  const tracking = useIsFocused();
-  //console.log(tracking);
+  // to trigger "on/off isTracking once I've navigated from the screen to save battery"
+  const shouldTrack = useIsFocused();
 
-  //calls for tracking authorization and postioning data to start flowing
-  const startWatching = async () => {
-    try {
-      await requestForegroundPermissionsAsync();
-      const sub = await watchPositionAsync(
-        //simulated IOS simulator data, with mockLocation turned off (use with physical device)
-        {
-          accuracy: Accuracy.BestForNavigation,
-          timeInterval: 20000,
-          distanceInterval: 10,
-        },
-        (location) => {
-          addLocation(location, state.recording);
-        }
-      );
+  const callback = useCallback(
+    (location) => {
+      addLocation(location, state.recording);
+    },
+    [state.recording]
+  );
 
-      setSubscriber(sub); //gives state access to the entire watchPositionAsynce so I can .remorve() and stop tracking
-    } catch (e) {
-      setErr(e);
-      console.log(e); //IOS not trhowing an err
-    }
-  };
-
-  // to trigger "on/off tracking once I've navigated from the screen to save battery"
-  React.useEffect(() => {
-    if (tracking) {
-      startWatching();
-    } else {
-      subscriber.remove();
-      setSubscriber(null);
-      console.log("removed");
-    }
-  }, [tracking]);
+  const [err] = useLocation(shouldTrack, callback);
 
   return (
     <View style={styles.container}>
@@ -85,6 +53,7 @@ const styles = StyleSheet.create({
 });
 
 export default TrackCreateScreen;
-/*
+
+/* copy of entire component
 
  */
