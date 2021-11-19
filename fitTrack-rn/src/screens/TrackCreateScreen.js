@@ -6,21 +6,23 @@ import {
   requestForegroundPermissionsAsync,
   watchPositionAsync,
   Accuracy,
-  remove,
 } from "expo-location";
 
 import Map from "../components/Map";
 //import "../api/_mockLocation";
+import TrackForm from "../components/TrackForm";
 import LocationContext from "../context/LocationContext";
 
 const TrackCreateScreen = ({ navigation }) => {
   const [err, setErr] = useState(null);
   const [subscriber, setSubscriber] = useState(null);
+  const [recording, setRecording] = useState(false);
   const { addLocation, state } = useContext(LocationContext);
 
   const tracking = useIsFocused();
   //console.log(tracking);
 
+  //calls for tracking authorization and postioning data to start flowing
   const startWatching = async () => {
     try {
       await requestForegroundPermissionsAsync();
@@ -32,7 +34,7 @@ const TrackCreateScreen = ({ navigation }) => {
           distanceInterval: 10,
         },
         (location) => {
-          addLocation(location);
+          addLocation(location, state.recording);
         }
       );
 
@@ -59,14 +61,11 @@ const TrackCreateScreen = ({ navigation }) => {
       <Text h3 style={styles.container}>
         Track Create Screen!
       </Text>
-      <Button
-        title="Stop"
-        onPress={() => {
-          stopWatching();
-        }}
-      />
       <Map />
       {err ? <Text>Please enable location services</Text> : null}
+      <View>
+        <TrackForm />
+      </View>
     </View>
   );
 };
