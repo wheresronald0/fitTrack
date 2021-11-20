@@ -33,6 +33,7 @@ export const LocationProvider = ({ children }) => {
 
   const stopRecording = () => {
     dispatch({ type: "stop_recording" });
+    //sill trigger "want to save?", and post to mongo "tracks"
   };
 
   const addLocation = (location, recording) => {

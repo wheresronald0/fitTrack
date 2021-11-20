@@ -10,7 +10,6 @@ import {
 export default (isTracking, callback) => {
   const [err, setErr] = useState(null);
 
-  // to trigger "on/off isTracking once I've navigated from the screen to save battery"
   React.useEffect(() => {
     let subscriber;
 
@@ -34,6 +33,7 @@ export default (isTracking, callback) => {
         console.log(e); //IOS not trhowing an err
       }
     };
+    // end  of location call
     if (isTracking) {
       startWatching();
     } else {

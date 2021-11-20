@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native"; //detects leaving a page similar to NavigationEvents
+import { useIsFocused } from "@react-navigation/native"; //detects leaving a page similar to NavigationEvents
 import { View, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-elements";
 
@@ -22,7 +22,7 @@ const TrackCreateScreen = () => {
     [state.recording]
   );
 
-  const [err] = useLocation(shouldTrack, callback);
+  const [err] = useLocation(shouldTrack || state.recording, callback); //deconstructed return statment from useLocation hook
 
   return (
     <View style={styles.container}>

@@ -6,9 +6,10 @@ import LocationContext from "../context/LocationContext";
 
 const Map = (props) => {
   const {
-    state: { currentLocation },
+    state: { currentLocation, locations },
   } = useContext(LocationContext);
 
+  console.log(locations);
   if (!currentLocation) {
     return <ActivityIndicator size="large" style={{ margin: 175 }} />;
   }
@@ -34,6 +35,7 @@ const Map = (props) => {
         strokeColor="rgba(158, 158, 255, 1.0)"
         fillColor="rgba(158, 158, 255, .3)"
       />
+      <Polyline coordinates={locations.map((loc) => loc.coords)} />
     </MapView>
   );
 };
