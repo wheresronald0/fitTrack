@@ -44,23 +44,3 @@ const TrackListScreen = ({ navigation }) => {
 const styles = StyleSheet.create({});
 
 export default TrackListScreen;
-
-/*
-<FlatList
-        data={state}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity>
-              <ListItem>
-                <ListItem.Content>
-                  <ListItem.Title>{item.name}</ListItem.Title>
-                </ListItem.Content>
-                <ListItem.Chevron />
-              </ListItem>
-            </TouchableOpacity>
-          );
-        }}
-      />
-
-*/
