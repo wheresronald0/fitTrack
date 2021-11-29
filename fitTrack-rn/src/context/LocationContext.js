@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useReducer } from "react";
 import trackerApi from "../api/tracker";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as RootNavigation from "../components/RootNavigation";
 
 const LocationContext = React.createContext();
 
@@ -57,12 +57,18 @@ export const LocationProvider = ({ children }) => {
     //console.log(name);
   };
 
+  const getTrackList = async () => {
+    const response = await trackerApi.get("/tracks");
+    dispatch({ type: "get_track_list", payload: response.data });
+  };
+
   const saveTrack = async () => {
     await trackerApi.post("/tracks", {
       name: state.trackName,
       locations: state.locations,
     });
     dispatch({ type: "save_track" });
+    RootNavigation.navigate("Deets");
   };
 
   return (
@@ -74,7 +80,7 @@ export const LocationProvider = ({ children }) => {
         addLocation: addLocation,
         changeTrackName: changeTrackName,
         saveTrack: saveTrack,
-        //getTrackList: getTrackList,
+        getTrackList: getTrackList,
       }}
     >
       {children}

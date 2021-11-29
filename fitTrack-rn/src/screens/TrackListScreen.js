@@ -4,19 +4,17 @@ import {
   Text,
   StyleSheet,
   Button,
-  ScrollView,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
 import LocationContext from "../context/LocationContext";
 
 const TrackListScreen = ({ navigation }) => {
-  const { trackList, setTrackList } = useState([]);
   const { state, getTrackList } = useContext(LocationContext);
 
   const getInitialTrackList = () => {
-    return console.log("made track list call");
-    //getTrackList();
-    //setTrackList(state.trackList);
+    console.log("made track list call");
+    getTrackList();
   };
 
   useEffect(() => {
@@ -27,15 +25,17 @@ const TrackListScreen = ({ navigation }) => {
     <View>
       <Text>Track List Screen!</Text>
       <FlatList
-        data={trackList}
-        keyExtractor={() => trackList.name}
+        data={state.trackList}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
-          return <View>{item.name}</View>;
+          return (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("TrackDetail")}
+            >
+              <Text>{item.name}</Text>
+            </TouchableOpacity>
+          );
         }}
-      />
-      <Button
-        title="Details"
-        onPress={() => navigation.navigate("TrackDetail")}
       />
     </View>
   );
@@ -44,3 +44,23 @@ const TrackListScreen = ({ navigation }) => {
 const styles = StyleSheet.create({});
 
 export default TrackListScreen;
+
+/*
+<FlatList
+        data={state}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity>
+              <ListItem>
+                <ListItem.Content>
+                  <ListItem.Title>{item.name}</ListItem.Title>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+            </TouchableOpacity>
+          );
+        }}
+      />
+
+*/
