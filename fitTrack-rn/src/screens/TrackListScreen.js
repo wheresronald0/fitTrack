@@ -1,38 +1,40 @@
-import React, { useContext, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import React, { useContext } from "react";
+import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import { ListItem, Text } from "react-native-elements";
 import LocationContext from "../context/LocationContext";
 
 const TrackListScreen = ({ navigation }) => {
   const { state, getTrackList } = useContext(LocationContext);
 
-  const getInitialTrackList = () => {
-    console.log("made track list call");
-    getTrackList();
-  };
-
-  useEffect(() => {
-    getInitialTrackList();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("made track list call");
+      getTrackList();
+    }, [])
+  );
 
   return (
-    <View>
-      <Text>Track List Screen!</Text>
+    <View style={styles.container}>
+      <Text h4 style={styles.title}>
+        List of Tracks
+      </Text>
       <FlatList
         data={state.trackList}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => navigation.navigate("TrackDetail")}
+              onPress={() =>
+                navigation.navigate("TrackDetail", { id: item._id })
+              }
             >
-              <Text>{item.name}</Text>
+              <ListItem>
+                <ListItem.Content>
+                  <ListItem.Title>{item.name}</ListItem.Title>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
             </TouchableOpacity>
           );
         }}
@@ -41,6 +43,16 @@ const TrackListScreen = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    backgroundColor: "white",
+  },
+  title: {
+    marginVertical: 20,
+    alignSelf: "center",
+  },
+});
 
 export default TrackListScreen;
