@@ -26,10 +26,7 @@ const TrackCreateScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text h3 style={styles.container}>
-        Track Create Screen!
-      </Text>
-      <Map />
+      <Map style={styles.map} />
       {err ? <Text>Please enable location services</Text> : null}
       <View>
         <TrackForm />
@@ -42,10 +39,9 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     paddingHorizontal: 20,
+    paddingVertical: 30,
   },
-  title: {
-    marginVertical: 100,
-  },
+
   button: {
     width: 300,
     margin: 15,

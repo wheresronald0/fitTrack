@@ -17,7 +17,7 @@ const TrackListScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text h4 style={styles.title}>
-        List of Tracks
+        Your Tracks
       </Text>
       <FlatList
         data={state.trackList}

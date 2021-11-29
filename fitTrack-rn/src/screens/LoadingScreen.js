@@ -15,7 +15,7 @@ const LoadingScreen = ({ navigation }) => {
       <Button
         title="To Login"
         onPress={() => {
-          navigation.navigate("LoginFlow");
+          navigation.navigate("TrackList");
         }}
       />
     </View>

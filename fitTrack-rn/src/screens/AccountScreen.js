@@ -9,7 +9,7 @@ const AccountScreen = (props) => {
   return (
     <View style={styles.container}>
       <Text h4 style={styles.title}>
-        Account Settings
+        Settings
       </Text>
       <Button title="Log Out" style={styles.button} onPress={signOut} />
     </View>
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
-    marginVertical: 100,
+    marginVertical: 50,
   },
   button: {
     width: 300,

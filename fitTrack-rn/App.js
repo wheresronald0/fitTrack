@@ -84,7 +84,7 @@ function detailsOf(props) {
     <Stack.Navigator>
       <Stack.Screen
         name="TrackList"
-        options={{ title: "Your Tracks" }}
+        options={{ title: "fitTrack" }}
         component={TrackListScreen}
       />
 
@@ -93,7 +93,7 @@ function detailsOf(props) {
         //options={{ title: "Track Detail" }}
         component={TrackDetailScreen}
         options={{
-          title: "Track Detailo",
+          title: "Track Details",
           //tabBarItemStyle: { display: "none" },
           //headerShown: true,
         }}
