@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
 
 import SignupScreen from "./src/screens/SignupScreen";
 import SigninScreen from "./src/screens/SigninScreen";
@@ -37,11 +38,30 @@ function loginFlow() {
   );
 }
 
+//Bottom Nav Bar
 function mainFlow(props) {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === "Tracks") {
+            iconName = focused ? "list-sharp" : "list-outline";
+          } else if (route.name === "TrackCreate") {
+            iconName = focused ? "add-circle" : "add-circle-outline";
+          } else if (route.name === "Account") {
+            iconName = focused ? "settings" : "settings-outline";
+          }
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: "tomato",
+        tabBarInactiveTintColor: "gray",
+      })}
+    >
       <Stack.Screen
-        name="Deets"
+        name="Tracks"
         options={{ headerShown: false }}
         component={detailsOf}
       />
