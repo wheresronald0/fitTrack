@@ -4,10 +4,11 @@ import { Button, Input, Text } from "react-native-elements";
 import LocationContext from "../context/LocationContext";
 
 const TrackForm = () => {
-  const { state, startRecording, stopRecording, changeTrackName } =
+  const { state, startRecording, stopRecording, changeTrackName, saveTrack } =
     useContext(LocationContext);
 
   console.log(state.locations.length);
+
   return (
     <View>
       <Input
@@ -31,6 +32,9 @@ const TrackForm = () => {
           onPress={startRecording}
         />
       )}
+      {state.locations.length && !state.recording ? (
+        <Button title="Save Track" style={styles.button} onPress={saveTrack} />
+      ) : null}
     </View>
   );
 };

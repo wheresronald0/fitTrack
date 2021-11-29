@@ -1,4 +1,7 @@
+import axios from "axios";
 import React, { useReducer } from "react";
+import trackerApi from "../api/tracker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LocationContext = React.createContext();
 
@@ -14,6 +17,10 @@ const reducer = (state, action) => {
       return { ...state, recording: false };
     case "change_track_name":
       return { ...state, trackName: action.payload };
+    case "save_track":
+      return { ...state, locations: [], recording: false, trackName: "" };
+    case "get_track_list":
+      return { ...state, trackList: action.payload };
     default:
       return state;
   }
@@ -25,6 +32,7 @@ export const LocationProvider = ({ children }) => {
     currentLocation: null,
     recording: false,
     trackName: "",
+    trackList: [],
   });
 
   const startRecording = () => {
@@ -49,6 +57,14 @@ export const LocationProvider = ({ children }) => {
     //console.log(name);
   };
 
+  const saveTrack = async () => {
+    await trackerApi.post("/tracks", {
+      name: state.trackName,
+      locations: state.locations,
+    });
+    dispatch({ type: "save_track" });
+  };
+
   return (
     <LocationContext.Provider
       value={{
@@ -57,6 +73,8 @@ export const LocationProvider = ({ children }) => {
         stopRecording: stopRecording,
         addLocation: addLocation,
         changeTrackName: changeTrackName,
+        saveTrack: saveTrack,
+        //getTrackList: getTrackList,
       }}
     >
       {children}
